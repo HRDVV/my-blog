@@ -1,7 +1,7 @@
 ---
 title: Flask学习-环境搭建
 date: 2019-02-21 09:35:33
-tags: [python, web, 服务端]
+tags: [python]
 ---
 
 > **写在前面**
@@ -93,6 +93,9 @@ def hello():
  
 if __name__ == '__main__':
     app.run()
+    
+# 启动项目(如果使用pyCharm,可以直接右键，选择【Run 'main'】)
+python main.py  
 ```
 
 > **写在最后**
