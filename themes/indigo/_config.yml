@@ -9,14 +9,16 @@
 #    target: _blank    是否跳出，省略则在当前页面打开
 menu:
   home:
-    text: home
+    text: 首页
     url: /
   archives:
+    text: 归档
     url: /archives
   tags:
+    text: 标签
     url: /tags
   th-list:
-    text: Categories
+    text: 分类
     url: /categories
   github:
     url: https://github.com/HRDVV
@@ -54,9 +56,9 @@ email: hrd.candy.dev@gmail.com
 color: '#3F51B5'
 
 # 页面标题
-tags_title: Tags
-archives_title: Archives
-categories_title: Categories
+tags_title: 标签
+archives_title: 归档
+categories_title: 分类
 
 # 文章截断
 excerpt_render: false
