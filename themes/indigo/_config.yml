@@ -17,9 +17,9 @@ menu:
   tags:
     text: 标签
     url: /tags
-  th-list:
-    text: 分类
-    url: /categories
+  # th-list:
+  #   text: 分类
+  #   url: /categories
   github:
     url: https://github.com/HRDVV
     target: _blank
@@ -58,7 +58,7 @@ color: '#3F51B5'
 # 页面标题
 tags_title: 标签
 archives_title: 归档
-categories_title: 分类
+# categories_title: 分类
 
 # 文章截断
 excerpt_render: false
