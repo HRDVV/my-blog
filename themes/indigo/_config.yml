@@ -23,17 +23,17 @@ menu:
   github:
     url: https://github.com/HRDVV
     target: _blank
-  weibo:
-    url:  https://weibo.com/u/2951899380
-    target: _blank
+  # weibo:
+  #   url:  https://weibo.com/u/2951899380
+  #   target: _blank
 
 gitalk:
-  enable: true
-  client_id: 77998002822ceaf773ad
-  client_secret: d1ae44b7f4668dbfa44796907f8a2d05c7ba0727
-  repo: HRDVV.github.io
-  owner: HRDVV
-  admin: HRDVV
+  enable: false
+#   client_id: 77998002822ceaf773ad
+#   client_secret: d1ae44b7f4668dbfa44796907f8a2d05c7ba0727
+#   repo: HRDVV.github.io
+#   owner: HRDVV
+#   admin: HRDVV
 
 # feed:
 #   type: atom
@@ -71,13 +71,13 @@ archive_yearly: true
 show_last_updated: true
 
 # 是否开启分享
-share: true
+share: false
 
 # 是否开启打赏，关闭 reward: false
-reward:
-  title: 谢谢大爷~
-  wechat: /img/wechat.jpg     #微信，关闭设为 false
-  alipay: false     #支付宝，关闭设为 false
+reward: false
+  # title: 谢谢大爷~
+  # wechat: /img/wechat.jpg     #微信，关闭设为 false
+  # alipay: false     #支付宝，关闭设为 false
 
 # 是否开启搜索
 search: true
@@ -91,7 +91,7 @@ toc:
   list_number: true  # 是否显示数字排序
 
 # 文章页留言内容，hexo中所有变量及辅助函数等均可调用，具体请查阅 hexo.io
-postMessage:  期待您提出宝贵的意见!
+postMessage:  false
 
 # 站长统计，如要开启，输入CNZZ站点id，如 cnzz: 1255152447
 cnzz: false
