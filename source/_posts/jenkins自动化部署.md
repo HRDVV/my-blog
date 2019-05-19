@@ -84,7 +84,7 @@ tags: [docker,jenkins]
 
 NodeJS Plugin
 
-![](http://img.ruidasir.com/images/node.png)
+![](//img.ruidasir.com/images/node.png)
 
 ```
 name: 随便起，后续自己能识别出来就行,
