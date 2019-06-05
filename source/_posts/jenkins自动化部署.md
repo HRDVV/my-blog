@@ -3,84 +3,82 @@ title: jenkins自动化部署
 date: 2019-05-18 23:15:47
 tags: [docker,jenkins]
 ---
-> **写在前面**
->
-> ------
->
+### 写在前面
+
 > 该文用于记录学习jenkins自动化部署前端项目的过程，以本博客为例
 
-1. #### 安装、运行jenkins
+#### 安装、运行jenkins
 
-   + 第一种：可以到[jenkins官网](https://jenkins.io/)去下载war包，然后`java -jar jenkins.war　`去启动它（前提是你已经安装了jdk），默认端口为8080，当然也可以在tomcat中去启动，这就是一个普通web项目的部署流程
+第一种：可以到[jenkins官网](https://jenkins.io/)去下载war包，然后`java -jar jenkins.war　`去启动它（前提是你已经安装了jdk），默认端口为8080，当然也可以在tomcat中去启动，这就是一个普通web项目的部署流程
 
-   + 第二种：docker容器的方式安装运行jenkins，这也是本文要重点讲的。
+第二种：docker容器的方式安装运行jenkins，这也是本文要重点讲的。
 
-     ##### 下载jenkins的docker镜像,要先安装docker(自行安装)
+##### 下载jenkins的docker镜像,要先安装docker(自行安装)
 
-     `docker pull jenkins/jenkins`
+`docker pull jenkins/jenkins`
 
-     ##### 查看docker镜像，查看是否存在
+##### 查看docker镜像，查看是否存在
 
-     `docker images`
+`docker images`
 
-     ##### 运行jenkins容器
+##### 运行jenkins容器
 
-     ```javascript
-     docker run -d -p 8080:8080 -p 5000:50000 -v ~/data/jenkins:/var/jenkins_home --name jenkins --privileged=true [镜像ID]
-     
-     # -d 后台方式运行，防止在终端中打印docker的运行日志
-     # -p 端口映射，8080（默认）是宿主机和容器的映射， 50000（默认）是jenkins代理和jenkins主机的映射
-     # -v 挂载目录，用于目录的映射（当然可以不映射），~/data/jenkins（喜欢放哪就放哪）是宿主机上的目录
-     /*
-       如果出现无访问权限的报错（ls -nd 查看归属者），chown -R 1000:1000 [目录] ，因为容器默认使用	uid=1000，gid=1000来访问卷，如果是没有读写执行权限chmod -R 777 [目录]
-     */
-     # --name 给容器起个名字
-     # --prilileges=true 使容器获得特权
-     ```
+```javascript
+docker run -d -p 8080:8080 -p 5000:50000 -v ~/data/jenkins:/var/jenkins_home --name jenkins --privileged=true [镜像ID]
 
-     #####  交互式进入jenkins容器(需要则进)
+# -d 后台方式运行，防止在终端中打印docker的运行日志
+# -p 端口映射，8080（默认）是宿主机和容器的映射， 50000（默认）是jenkins代理和jenkins主机的映射
+# -v 挂载目录，用于目录的映射（当然可以不映射），~/data/jenkins（喜欢放哪就放哪）是宿主机上的目录
+/*
+  如果出现无访问权限的报错（ls -nd 查看归属者），chown -R 1000:1000 [目录] ，因为容器默认使用	uid=1000，gid=1000来访问卷，如果是没有读写执行权限chmod -R 777 [目录]
+*/
+# --name 给容器起个名字
+# --prilileges=true 使容器获得特权
+```
 
-     `docker exec -it [运行时你起的哪个名字] /bin/bash `
+#####  交互式进入jenkins容器(需要则进)
 
-2. #### 访问jenkins
+`docker exec -it [运行时你起的哪个名字] /bin/bash `
 
-   主机ip:8080, 即可访问，这时会让你输入密码，这时可以在容器内获得：
+#### 访问jenkins
 
-   没挂载目录：`docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword`
+主机ip:8080, 即可访问，这时会让你输入密码，这时可以在容器内获得：
 
-   挂在目录：`cat [挂载的目录]/secrets/initialAdminPassword`
+没挂载目录：`docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword`
 
-3. #### 下载插件并创建用户
+挂在目录：`cat [挂载的目录]/secrets/initialAdminPassword`
 
-   按照推荐的来就行，有下载失败的没关系，点击continue进入下一页面去创建用户，以后就可以用你新设置的账号去登录jenkins了
+#### 下载插件并创建用户
 
-4. #### 给你的jenkins的设置一个域名
+按照推荐的来就行，有下载失败的没关系，点击continue进入下一页面去创建用户，以后就可以用你新设置的账号去登录jenkins了
 
-   这时候nginx就要闪亮登场了，这里是默认你有备案域名的：
+#### 给你的jenkins的设置一个域名
 
-   + 先设置一个二级域名，例如： `jenkins.ruidasir.com`
+这时候nginx就要闪亮登场了，这里是默认你有备案域名的：
 
-   + 在nginx中为其配置基于域名的虚拟主机
+先设置一个二级域名，例如： `jenkins.ruidasir.com`
 
-     ```nginx
-     server {
-         listen       80;
-         server_name  jenkins.ruidasir.com;
-     	...
-         location / {
-         	# 配置反向代理
-         	proxy_pass http://127.0.0.1:8080;
-         }
-       ...
-     ```
+在nginx中为其配置基于域名的虚拟主机
 
-5. #### 安装所需插件
+```nginx
+server {
+    listen       80;
+    server_name  jenkins.ruidasir.com;
+	...
+    location / {
+    	# 配置反向代理
+    	proxy_pass http://127.0.0.1:8080;
+    }
+  ...
+```
 
-   Github Plugin（在jenkins中整合github api等）、NodeJS Plugin（在jenkins中配置node环境）、Public Over SSH(用于构建之后的部署到远程服务器)、Generic Webhook Trigger plugin(实现构建触发器，比如当提交代码时，自动触发打包部署)
+#### 安装所需插件
 
-   `注意： 如果搜不到插件，就到[系统设置]-[插件管理]-[高级]`，将升级站点的url改为http://mirror.xmission.com/jenkins/updates/update-center.json，随后点击submit，check now
+Github Plugin（在jenkins中整合github api等）、NodeJS Plugin（在jenkins中配置node环境）、Public Over SSH(用于构建之后的部署到远程服务器)、Generic Webhook Trigger plugin(实现构建触发器，比如当提交代码时，自动触发打包部署)
 
-6. #### 配置插件
+`注意： 如果搜不到插件，就到[系统设置]-[插件管理]-[高级]`，将升级站点的url改为http://mirror.xmission.com/jenkins/updates/update-center.json   ，随后点击submit，check now
+
+#### 配置插件
 
 NodeJS Plugin
 
@@ -103,9 +101,9 @@ Username: ssh登录名称
 Remote Directory: 部署到远程服务器的路径，填写根路径即可
 ```
 
-7. #### 新建任务
+#### 新建任务
 
-   ![](http://img.ruidasir.com/images/task.png)
+![](http://img.ruidasir.com/images/task.png)
 
 
 
@@ -197,20 +195,20 @@ Api url：填写默认的就好，如果是企业用户，需要加/api/v3后缀
 凭据：选择Secret text, 你应该猜到了，这个Secret就是我们刚刚生成的personal access token，点击添加，下拉框选择它
 ```
 
-9. #### 终于结尾了
+#### 终于结尾了
 
-   > 写到这，全部配置就好了，现在进到任务中，点击立即构建试试吧，报错没关系，查看日志哦，如果说是缺少node包，或者你觉得这太慢了，我这提供两种解决方法：
-   >
-   > 1、在打包阶段，将安装node包、切换npm源的命令写进去
-   >
-   > 2、进到容器中，找到node安装路径，去做这些工作
-   >
-   > ```shell
-   > cd /var/jenkins_home/tools/jenkins.plugins.nodejs.tools.NodeJSInstallation/
-   > cd [node安装目录]
-   > # 安装包
-   > ./bin/node install [module name]
-   > # 切换源
-   > ./bin/node npm config set registry https://registry.npm.taobao.org
-   > ```
+写到这，全部配置就好了，现在进到任务中，点击立即构建试试吧，报错没关系，查看日志哦，如果说是缺少node包，或者你觉得这太慢了，我这提供两种解决方法：
+
+1、在打包阶段，将安装node包、切换npm源的命令写进去
+
+2、进到容器中，找到node安装路径，去做这些工作
+
+```java
+cd /var/jenkins_home/tools/jenkins.plugins.nodejs.tools.NodeJSInstallation/
+cd [node安装目录]
+// 安装包
+./bin/node install [module name]
+// 切换源
+./bin/node npm config set registry https://registry.npm.taobao.org
+```
 
