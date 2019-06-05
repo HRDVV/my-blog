@@ -82,7 +82,7 @@ Github Plugin（在jenkins中整合github api等）、NodeJS Plugin（在jenkins
 
 NodeJS Plugin
 
-![](http://img.ruidasir.com/images/node.png)
+![](/images/blog/node.png)
 
 ```
 name: 随便起，后续自己能识别出来就行,
@@ -91,7 +91,7 @@ name: 随便起，后续自己能识别出来就行,
 
 Public Over SSH
 
-![](http://img.ruidasir.com/images/ssh.png)
+![](/images/blog/ssh.png)
 
 ```javascript
 passphrase: 填写服务器ssh密码
@@ -103,11 +103,11 @@ Remote Directory: 部署到远程服务器的路径，填写根路径即可
 
 #### 新建任务
 
-![](http://img.ruidasir.com/images/task.png)
+![](/images/blog/task.png)
 
 
 
-![](http://img.ruidasir.com/images/build1.png)
+![](/images/blog/build1.png)
 
 ```
 勾选Github项目： URL设置成你想部署的git仓库地址
@@ -117,7 +117,7 @@ Source Code Management(源码管理)：选择Git
 往下看，可以指定分支，一般默认master
 ```
 
-![](http://img.ruidasir.com/images/build2.png)
+![](/images/blog/build2.png)
 
 ```
 勾选Generic Webhook Trigger
@@ -125,7 +125,7 @@ Token： 随便整，到时候和github上对应就行
 根据Token输入框下面那堆字儿，可以知道，构建触发器，是通过http: [jenkins_url]/generic-webhook-trigger/invoke?token=[你设置的]请求触发的。如果你有点蒙，继续往下看就会很清晰了。
 ```
 
-![](http://img.ruidasir.com/images/build3.png)
+![](/images/blog/build3.png)
 
 ```
 勾选Github hook trigger for GITScm polling 
@@ -134,13 +134,13 @@ Build Environment
 NodeJS 安装器选择前面你配置的那个node名称
 ```
 
-![](http://img.ruidasir.com/images/build4.png)
+![](/images/blog/build4.png)
 
 ```
 用于编译的命令
 ```
 
-![](http://img.ruidasir.com/images/build5.png)
+![](/images/blog/build5.png)
 
 ```
 编译后的动作，点击‘add post build action’选择send build artifacts over SSH
@@ -156,9 +156,9 @@ Exec comand: 发送完毕后执行什么操作
 
 配置github
 
-![](http://img.ruidasir.com/images/git1.png)
+![](/images/blog/git1.png)
 
-![](http://img.ruidasir.com/images/git2.png)
+![](/images/blog/git2.png)
 
 ```
 进到项目仓库中，点击settings -> Webhooks -> Add webhook
@@ -173,9 +173,9 @@ Secret: 不用填
 
 `如果你以为到这就完事了，你就太幼稚了，哈哈哈哈, 来，醒醒，我们继续`
 
-![](http://img.ruidasir.com/images/git3.png)
+![](/images/blog/git3.png)
 
-![](http://img.ruidasir.com/images/git4.png)
+![](/images/blog/git4.png)
 
 ```
 进到github账号的settins -> 开发者设置 -> Personal access tokens -> 生成一个token；
@@ -185,9 +185,9 @@ Secret: 不用填
 接下来，我们看一下jenkins要怎么调api。
 ```
 
-![](http://img.ruidasir.com/images/webhook.png)
+![](/images/blog/webhook.png)
 
-![](http://img.ruidasir.com/images/webhook1.png)
+![](/images/blog/webhook1.png)
 
 ```
 名称： 随便填写
