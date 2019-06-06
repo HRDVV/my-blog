@@ -123,18 +123,18 @@ console.log(dog instanceof Animal)    // true
 
 ```javascript
 function hasInstance (ins, constructor) {
-  	if (ins === null &&  constructor !== null) {
-      return false
-    } else if (constructor === null) {
-      	throw(new TypeError('Right-hand side of 'instanceof' is not an object'))
-    }
-  	var proto = ins.__proto__
-    var prototype = constructor.prototype
-		while (proto !== prototype) {
-      	if (proto === null) return false
-    		proto = proto.__proto__
-    }
-    return true
+  if (ins === null &&  constructor !== null) {
+    return false
+  } else if (constructor === null) {
+    throw(new TypeError('Right-hand side of 'instanceof' is not an object'))
+  }
+  var proto = ins.__proto__
+  var prototype = constructor.prototype
+  while (proto !== prototype) {
+    if (proto === null) return false
+    proto = proto.__proto__
+  }
+  return true
 }
 
 // test 
