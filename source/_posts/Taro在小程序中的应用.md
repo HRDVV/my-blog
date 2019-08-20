@@ -4,10 +4,6 @@ date: 2019-08-20 07:25:47
 tags: [typescript, react]
 ---
 
-### Taro在小程序中的应用
-
-###### 
-
 > 写在前面：开发前务必浏览一遍[taro规范](http://taro-docs.jd.com/taro/docs/spec-for-taro.html)，这一点非常重要，后面的编码规范也是在这个基础上进行修改的
 
 #### 1. 安装脚手架
