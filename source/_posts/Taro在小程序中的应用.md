@@ -46,21 +46,21 @@ $ npm install -g mirror-config-china
   ├── global                  // 通用工具类
   │   ├── decorators          // 装饰器，用于改变类型、方法行为
   │   ├── enums               // 枚举类，比如HTTP_CODE等
-  │   └── utils.ts			    // 工具函数
+  │   └── utils.ts            // 工具函数
   ├── index.html
   ├── packages                // 分包目录，当小程序业务复杂，担心包体积过大，可以配置分包
-  ├── pages					    // 页面目录
+  ├── pages                   // 页面目录
   │   ├── index	
   │   └── mine
-  ├── service				    // 服务，存放http请求工具和拦截器
+  ├── service                 // 服务，存放http请求工具和拦截器
   │   ├── interceptor.ts
   │   ├── request.d.ts
   │   └── request.ts
   └── store                   // 全局的状态管理
       ├── actions             // 要派发的动作
       ├── constants           // 常量，用于存放actionType
-      ├── index.ts			    // store入口
-			└── reducers       // 改变state的途径， 类似vue里的mutations
+      ├── index.ts            // store入口
+      └── reducers            // 改变state的途径， 类似vue里的mutations
 ```
 
 #### 4.编译的基本配置 
